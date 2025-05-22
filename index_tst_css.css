@@ -1,0 +1,28 @@
+body {
+  background-color: rgb(241, 251, 255);
+}
+h1 {
+  margin-top: 50px;
+  color: rgb(61, 42, 143);
+  text-align: center;
+}
+p {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+
+  text-align: center;
+  color: rgb(43, 43, 119);
+}
+.image-container {
+  text-align: center; /* ממרכז את התמונה */
+  margin: 100px;
+  width: 500px;
+  margin: 20px auto;
+}
+
+.nice-image {
+  width: 30px; /* הגודל הרצוי */
+  border: 10px solid #1f0958; /* מסגרת בצבע אפור כהה */
+  border-radius: 30px; /* פינות מעוגלות */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* צל עדין */
+}
