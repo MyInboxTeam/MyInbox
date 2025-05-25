@@ -1,0 +1,31 @@
+# תיקיות Node ו־Logs
+node_modules/
+logs/
+*.log
+
+# קבצי סביבה
+.env
+
+# קבצי מערכת
+.DS_Store
+Thumbs.db
+
+# קבצים שנוצרים אוטומטית
+dist/
+build/
+coverage/
+
+# IDEs (ערכות פיתוח)
+.vscode/
+.idea/
+*.swp
+
+# קבצי נתונים אישיים או זמניים
+*.local
+*.cache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# מערכת ההפעלה
+desktop.ini
