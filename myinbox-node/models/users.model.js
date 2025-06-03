@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     }
   }, {
-    tableName: 'Users',     // ✅ מחוץ לשדות
-    timestamps: false       // ✅ לא מוסיף createdAt, updatedAt
+    tableName: 'Users',
+    timestamps: false
   });
 
   return Users;
