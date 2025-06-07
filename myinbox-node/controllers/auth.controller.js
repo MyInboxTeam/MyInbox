@@ -3,6 +3,7 @@ const authService = require('../services/auth.service');
 exports.login = async (req, res) => {
   debugger;
   try {
+    const token = await authService.login(req.body);
     const result = await authService.login(req.body);
     res.status(200).json(result);
   } catch (error) {

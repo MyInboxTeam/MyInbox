@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login({ onSwitch }) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
 
   const handleChange = (e) => {
@@ -15,9 +17,16 @@ const handleSubmit = async (e) => {
     body: JSON.stringify(formData)
   });
 
-  const data = await response.json();
-  alert(data.error || 'ההתחברות הצליחה');
-  console.log(data.error); // או ניווט/שמירה
+  const data = await response.json(); 
+  if (data.token) {
+    localStorage.setItem('token', data.token)   
+    alert('ההתחברות הצליחה');
+    navigate('/HomePage');
+  } else {
+    console.log(data.error)
+    alert('פרטי הזדהות שגויים');
+    setFormData({email:'',password:'' })
+  }
 };
 
   return (
@@ -25,6 +34,7 @@ const handleSubmit = async (e) => {
       <input
         type="email"
         name="email"
+        value={formData.email}
         placeholder="אימייל"
         onChange={handleChange}
         required
@@ -33,6 +43,7 @@ const handleSubmit = async (e) => {
       <input
         type="password"
         name="password"
+        value={formData.password}
         placeholder="סיסמה"
         onChange={handleChange}
         required
@@ -48,7 +59,7 @@ const handleSubmit = async (e) => {
         אין לך חשבון?{' '}
         <button
           type="button"
-          onClick={onSwitch}
+          onClick={() => navigate('/Register')}
           className="text-blue-600 underline hover:text-blue-800"
         >
           הרשם כאן

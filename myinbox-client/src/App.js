@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Login from './Login';
+import HomePage from './HomePage';
 import Register from './Register';
 
 function App() {
-  // כאן ממקמים את useState
-  const [isLogin, setIsLogin] = useState(true);
-
-  // וכאן את הפונקציה שמחליפה את המצב
-  const toggleForm = () => {
-    setIsLogin(!isLogin);
-  };
-
   return (
-    <div>
-      {isLogin ? <Login onSwitch={toggleForm} /> : <Register onSwitch={toggleForm} />}
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/HomePage" element={<HomePage />} />
+      <Route path="/Register" element={<Register />} />
+    </Routes>
   );
 }
 

@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import './Register.css';
+import './Login';
+import { useNavigate } from 'react-router-dom';
+
 
 function Register() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
 
   const handleChange = (e) => {
@@ -18,17 +22,23 @@ function Register() {
       });
       const data = await res.json();
       console.log(data); // או ניווט/שמירה
-      alert(data.error || 'נרשמת בהצלחה');
+      if (data.error) {
+        alert(data.error);
+        setFormData({ name:'',  email:'',password:''});
+      } else {
+        alert('נרשמת בהצלחה');
+        navigate('/');
+      }
     } catch (err) {
-      alert('שגיאה בהרשמה');
+      alert('תקלה בלתי צפויה');
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <input name="name" type="text" placeholder="שם מלא" onChange={handleChange} required className="border p-2 rounded" />
-      <input name="email" type="email" placeholder="אימייל" onChange={handleChange} required className="border p-2 rounded" />
-      <input name="password" type="password" placeholder="סיסמה" onChange={handleChange} required className="border p-2 rounded" />
+      <input name="name" type="text" value={formData.name} placeholder="שם מלא" onChange={handleChange} required className="border p-2 rounded" />
+      <input name="email" type="email" value={formData.email} placeholder="אימייל" onChange={handleChange} required className="border p-2 rounded" />
+      <input name="password" type="password" value={formData.password} placeholder="סיסמה" onChange={handleChange} required className="border p-2 rounded" />
       <button type="submit" className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
         הרשמה
       </button>

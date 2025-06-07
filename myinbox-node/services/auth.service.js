@@ -14,13 +14,14 @@ exports.login = async ({ email, password }) => {
 
   const token = generateToken(user.id);
   console.log('Token:', token);
+
   return { token };
 };
 
 exports.register = async ({ name, email, password }) => {
     // בדיקת משתמש קיים
   debugger;
-    const existingUser = await Users.findOne({ where: { email } });
+  const existingUser = await Users.findOne({ where: { email } });
   if (existingUser) {
     throw new Error('משתמש כבר קיים');
   }
@@ -28,8 +29,6 @@ exports.register = async ({ name, email, password }) => {
   // הצפנת סיסמה
   const salt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash(password, salt);
-  //console.log(passwordHashHash);
-  //const passwordHash=passwordHashHash
 
   // יצירת משתמש חדש במסד
   const newUser = await Users.create({
