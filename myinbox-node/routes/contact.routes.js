@@ -1,13 +1,23 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const contactController = require('../controllers/contact.controller');
-//const authenticate = require('../middleware/auth.middleware'); // אימות JWT
+const contactController = require("../controllers/contact.controller");
+//const verifyToken = require("../middleware/auth");
 
-//router.use(authenticate); // ודא שכל הבקשות מאומתות
+//router.use(verifyToken);
 
-router.get('/', contactController.getAllContacts);
-router.post('/', contactController.createContact);
-router.put('/:id', contactController.updateContact);
-router.delete('/:id', contactController.deleteContact);
+// יצירת איש קשר חדש
+router.post("/", contactController.createContact);
+
+// שליפת כל אנשי הקשר
+router.get("/", contactController.getAllContacts);
+
+// שליפת איש קשר לפי מזהה
+router.get("/:id", contactController.getContactById);
+
+// עדכון איש קשר לפי מזהה
+router.put("/:id", contactController.updateContact);
+
+// מחיקת איש קשר לפי מזהה
+router.delete("/:id", contactController.deleteContact);
 
 module.exports = router;

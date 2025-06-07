@@ -1,34 +1,49 @@
-const ContactsService = require('../services/contact.service'); // נניח שיש לך מודל כזה
+const contacts = []; // נשתמש בזה כזיכרון זמני. בעתיד זה יכול להיות DB.
 
-exports.getAllContacts = async (req, res) => {
-  debugger;
-  try {
-    const result = await ContactsService.getAll(req.body);
-    res.status(200).json(result);
-  } catch (error) {
-    console.error('getAllContacts error:', error.message); // אופציונלי
-    res.status(401).json({ error: error.message || 'getAllContacts failed' });
-  }
+// יצירת איש קשר חדש
+exports.createContact = (req, res) => {
+  console.log("createContact hit");
+  const newContact = {
+    id: Date.now().toString(),
+    name: req.body.name,
+    email: req.body.email,
+    phone: req.body.phone,
+  };
+  contacts.push(newContact);
+  res.status(201).json(newContact);
 };
 
-exports.createContact = async (req, res) => {
-  debugger;
-  try {
-    const result= await ContactsService.create(req.body);
-    res.result(200).json(result);
-  } catch (error) {
-    res.status(401).json(error.message)
-  }
+// שליפת כל אנשי הקשר
+exports.getAllContacts = (req, res) => {
+  console.log("Hi From Get All Contacts");
+  res.json(contacts);
 };
 
-exports.updateContact = async (id, data) => {
-  const contact = await Contacts.findByPk(id);
-  if (!contact) throw new Error('Contact not found');
-  return await contact.update(data);
+// שליפת איש קשר לפי מזהה
+exports.getContactById = (req, res) => {
+  const contact = contacts.find((c) => c.id === req.params.id);
+  if (!contact) return res.status(404).json({ message: "Contact not found" });
+  res.json(contact);
 };
 
-exports.deleteContact = async (id) => {
-  const contact = await Contacts.findByPk(id);
-  if (!contact) throw new Error('Contact not found');
-  return await contact.destroy();
+// עדכון איש קשר
+exports.updateContact = (req, res) => {
+  const contact = contacts.find((c) => c.id === req.params.id);
+  if (!contact) return res.status(404).json({ message: "Contact not found" });
+
+  contact.name = req.body.name || contact.name; // אם לא נשלח שם חדש, נשאיר את הישן
+  contact.email = req.body.email || contact.email;
+  contact.phone = req.body.phone || contact.phone;
+
+  res.json(contact);
+};
+
+// מחיקת איש קשר
+exports.deleteContact = (req, res) => {
+  const index = contacts.findIndex((c) => c.id === req.params.id);
+  if (index === -1)
+    return res.status(404).json({ message: "Contact not found" });
+
+  const deleted = contacts.splice(index, 1);
+  res.json(deleted[0]);
 };
