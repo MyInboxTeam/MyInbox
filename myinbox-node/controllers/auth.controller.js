@@ -1,14 +1,17 @@
 const authService = require('../services/auth.service');
 
 exports.login = async (req, res) => {
-  debugger;
   try {
     const token = await authService.login(req.body);
-    const result = await authService.login(req.body);
-    res.status(200).json(result);
+    res.cookie('token', token, {
+      httpOnly: true,        // 🛡️ לא נגיש ב-JS
+      secure: false,         // true בפרודקשן (HTTPS בלבד)
+      sameSite: 'strict',    // חוסם משלוח מדומיין חיצוני
+      maxAge: 1000 * 60 * 60 // שעה
+    });
+    res.status(200).json({ message: 'Login successful' });
   } catch (error) {
-    console.error('Login error:', error.message); // אופציונלי
-    res.status(401).json({ error: error.message || 'Login failed' });
+    res.status(401).json({ error: error.message });
   }
 };
 

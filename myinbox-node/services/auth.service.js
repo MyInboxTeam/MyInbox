@@ -13,6 +13,7 @@ exports.login = async ({ email, password }) => {
   if (!isMatch) throw new Error('Invalid email or password');
 
   const token = generateToken(user.id);
+  
   console.log('Token:', token);
 
   return { token };

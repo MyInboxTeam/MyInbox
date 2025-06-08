@@ -11,23 +11,31 @@ function Login({ onSwitch }) {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  const response = await fetch('http://localhost:3001/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData)
-  });
 
-  const data = await response.json(); 
-  if (data.token) {
-    localStorage.setItem('token', data.token)   
-    alert('ההתחברות הצליחה');
-    navigate('/HomePage');
-  } else {
-    console.log(data.error)
-    alert('פרטי הזדהות שגויים');
-    setFormData({email:'',password:'' })
+  try {
+    debugger;
+    const response = await fetch('http://localhost:3001/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },    
+      body: JSON.stringify(formData),
+      credentials: 'include' // 🧠 חשוב כדי שה-cookie יישמר בדפדפן
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('ההתחברות הצליחה');
+      navigate('/HomePage');
+    } else {
+      alert(data.error || 'שגיאה בהתחברות');
+      setFormData({ email: '', password: '' });
+    }
+  } catch (err) {
+    console.error('שגיאת רשת:', err);
+    alert('שגיאת רשת. נסי שוב מאוחר יותר.');
   }
 };
+
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">

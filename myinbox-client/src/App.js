@@ -7,6 +7,7 @@ import Register from './Register';
 function App() {
   return (
     <Routes>
+      
       <Route path="/" element={<Login />} />
       <Route path="/HomePage" element={<HomePage />} />
       <Route path="/Register" element={<Register />} />
