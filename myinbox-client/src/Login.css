@@ -1,0 +1,84 @@
+/* סגנון כללי לדף */
+body {
+  background: linear-gradient(to bottom right, #dbeafe, #c7d2fe);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+  margin: 0;
+  padding: 0;
+}
+
+/* מיכל כללי */
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* הקופסה הלבנה */
+.login-container {
+  background-color: white;
+  padding: 40px 32px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* כותרת */
+.login-container h2 {
+  margin-bottom: 24px;
+  font-size: 24px;
+  color: #1d4ed8;
+}
+
+/* שדות טופס */
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.login-container input:focus {
+  border-color: #3b82f6;
+}
+
+/* כפתור התחברות */
+.login-container button[type='submit'] {
+  background-color: #2563eb;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button[type='submit']:hover {
+  background-color: #1e40af;
+}
+
+/* טקסט קישור */
+.login-container .form-link {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.login-container .form-link button {
+  background: none;
+  border: none;
+  color: #2563eb;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}

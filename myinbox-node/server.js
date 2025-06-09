@@ -1,21 +1,34 @@
-const express = require("express");
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const app = express();
-const contactRoutes = require("./routes/contact.routes");
-
-// מאפשר קריאת JSON בבקשות POST ו־PUT
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser());
 
-// מחבר את הנתיבים
-app.use("/api/contacts", contactRoutes);
 
-process.on("uncaughtException", (err) => {
-  console.error("שגיאה שלא נתפסה:", err);
+
+// חיבור כל הנתיבים
+
+// לוגין 
+const authRoutes = require('./routes/auth.routes');
+app.use('/api/auth', authRoutes); // עכשיו כל /api/auth/login עובר ל-auth.routes
+
+// אנשי קשר
+app.use('/api/contacts', require('./routes/contact.routes'));
+
+app.listen(3001, () => {
+  console.log('Server running on http://localhost:3001');
 });
 
-process.on("unhandledRejection", (reason, promise) => {
-  console.error("unhandledRejection!", reason);
-});
+const { sequelize } = require('./models');
 
-app.listen(3000, () => {
-  console.log("השרת מאזין על פורט 3000");
-});
+// רק כדי לוודא שהחיבור מתבצע בפועל
+sequelize.sync()
+  .then(() => console.log('📦 Database synced'))
+  .catch((err) => console.error('❌ Sync error:', err));
+
+
