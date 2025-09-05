@@ -1,0 +1,8 @@
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;   /* ממרכז אנכית */
+  justify-content: center; /* ממרכז אופקית */
+  background: linear-gradient(to bottom right, #dbeafe, #c7d2fe);
+  padding: 20px;
+}

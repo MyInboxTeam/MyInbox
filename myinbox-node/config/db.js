@@ -1,1 +1,6 @@
-// db.js - scaffolded for myinbox-node project
+const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize('MyInboxDB', 'yael_user', 'yael123yael', {
+  host: 'localhost\\SQLEXPRESS',
+  dialect: 'mssql',
+});
